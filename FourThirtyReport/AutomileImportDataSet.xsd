@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="AutomileImportDataSet" targetNamespace="http://tempuri.org/AutomileImportDataSet.xsd" xmlns:mstns="http://tempuri.org/AutomileImportDataSet.xsd" xmlns="http://tempuri.org/AutomileImportDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="AutomileImportDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="AutomileImportDataSet" msprop:Generator_UserDSName="AutomileImportDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="automileimport" msprop:Generator_TableClassName="automileimportDataTable" msprop:Generator_TableVarName="tableautomileimport" msprop:Generator_RowChangedName="automileimportRowChanged" msprop:Generator_TablePropName="automileimport" msprop:Generator_RowDeletingName="automileimportRowDeleting" msprop:Generator_RowChangingName="automileimportRowChanging" msprop:Generator_RowEvHandlerName="automileimportRowChangeEventHandler" msprop:Generator_RowDeletedName="automileimportRowDeleted" msprop:Generator_RowClassName="automileimportRow" msprop:Generator_UserTableName="automileimport" msprop:Generator_RowEvArgName="automileimportRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TransactionID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnTransactionID" msprop:Generator_ColumnPropNameInRow="TransactionID" msprop:Generator_ColumnPropNameInTable="TransactionIDColumn" msprop:Generator_UserColumnName="TransactionID" type="xs:int" />
+              <xs:element name="VehicleNumber" msprop:Generator_ColumnVarNameInTable="columnVehicleNumber" msprop:Generator_ColumnPropNameInRow="VehicleNumber" msprop:Generator_ColumnPropNameInTable="VehicleNumberColumn" msprop:Generator_UserColumnName="VehicleNumber" type="xs:string" />
+              <xs:element name="GeoFence" msprop:Generator_ColumnVarNameInTable="columnGeoFence" msprop:Generator_ColumnPropNameInRow="GeoFence" msprop:Generator_ColumnPropNameInTable="GeoFenceColumn" msprop:Generator_UserColumnName="GeoFence" type="xs:string" />
+              <xs:element name="IsInside" msprop:Generator_ColumnVarNameInTable="columnIsInside" msprop:Generator_ColumnPropNameInRow="IsInside" msprop:Generator_ColumnPropNameInTable="IsInsideColumn" msprop:Generator_UserColumnName="IsInside" type="xs:string" />
+              <xs:element name="Driver" msprop:Generator_ColumnVarNameInTable="columnDriver" msprop:Generator_ColumnPropNameInRow="Driver" msprop:Generator_ColumnPropNameInTable="DriverColumn" msprop:Generator_UserColumnName="Driver" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:automileimport" />
+      <xs:field xpath="mstns:TransactionID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>

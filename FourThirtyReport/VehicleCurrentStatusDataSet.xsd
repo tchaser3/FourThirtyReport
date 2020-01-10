@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="VehicleCurrentStatusDataSet" targetNamespace="http://tempuri.org/VehicleCurrentStatusDataSet.xsd" xmlns:mstns="http://tempuri.org/VehicleCurrentStatusDataSet.xsd" xmlns="http://tempuri.org/VehicleCurrentStatusDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="VehicleCurrentStatusDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="VehicleCurrentStatusDataSet" msprop:Generator_UserDSName="VehicleCurrentStatusDataSet">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="vehiclecurrentstatus" msprop:Generator_TableClassName="vehiclecurrentstatusDataTable" msprop:Generator_TableVarName="tablevehiclecurrentstatus" msprop:Generator_RowChangedName="vehiclecurrentstatusRowChanged" msprop:Generator_TablePropName="vehiclecurrentstatus" msprop:Generator_RowDeletingName="vehiclecurrentstatusRowDeleting" msprop:Generator_RowChangingName="vehiclecurrentstatusRowChanging" msprop:Generator_RowEvHandlerName="vehiclecurrentstatusRowChangeEventHandler" msprop:Generator_RowDeletedName="vehiclecurrentstatusRowDeleted" msprop:Generator_RowClassName="vehiclecurrentstatusRow" msprop:Generator_UserTableName="vehiclecurrentstatus" msprop:Generator_RowEvArgName="vehiclecurrentstatusRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="TransactionID" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnTransactionID" msprop:Generator_ColumnPropNameInRow="TransactionID" msprop:Generator_ColumnPropNameInTable="TransactionIDColumn" msprop:Generator_UserColumnName="TransactionID" type="xs:int" />
+              <xs:element name="VehicleNumber" msprop:Generator_ColumnVarNameInTable="columnVehicleNumber" msprop:Generator_ColumnPropNameInRow="VehicleNumber" msprop:Generator_ColumnPropNameInTable="VehicleNumberColumn" msprop:Generator_UserColumnName="VehicleNumber" type="xs:string" />
+              <xs:element name="Driver" msprop:Generator_ColumnVarNameInTable="columnDriver" msprop:Generator_ColumnPropNameInRow="Driver" msprop:Generator_ColumnPropNameInTable="DriverColumn" msprop:Generator_UserColumnName="Driver" type="xs:string" />
+              <xs:element name="Manager" msprop:Generator_ColumnVarNameInTable="columnManager" msprop:Generator_ColumnPropNameInRow="Manager" msprop:Generator_ColumnPropNameInTable="ManagerColumn" msprop:Generator_UserColumnName="Manager" type="xs:string" />
+              <xs:element name="AssignedOffice" msprop:Generator_ColumnVarNameInTable="columnAssignedOffice" msprop:Generator_ColumnPropNameInRow="AssignedOffice" msprop:Generator_ColumnPropNameInTable="AssignedOfficeColumn" msprop:Generator_UserColumnName="AssignedOffice" type="xs:string" />
+              <xs:element name="InOrOut" msprop:Generator_ColumnVarNameInTable="columnInOrOut" msprop:Generator_ColumnPropNameInRow="InOrOut" msprop:Generator_ColumnPropNameInTable="InOrOutColumn" msprop:Generator_UserColumnName="InOrOut" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:vehiclecurrentstatus" />
+      <xs:field xpath="mstns:TransactionID" />
+    </xs:unique>
+  </xs:element>
+</xs:schema>
