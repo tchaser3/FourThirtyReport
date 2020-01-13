@@ -54,6 +54,7 @@ namespace FourThirtyReport
         FindVehicleMainInShopByVehicleIDDataSet TheFindVehicleInShopByVehicleIDDataSet = new FindVehicleMainInShopByVehicleIDDataSet();
         FindVehiclesInYardByVehicleIDAndDateRangeDataSet TheFindVehicleInYardByVehicleIDAndDateRangeDataSet = new FindVehiclesInYardByVehicleIDAndDateRangeDataSet();
         FindEmployeeByEmployeeIDDataSet TheFindEnmployeeByEmployeeIDDataSet = new FindEmployeeByEmployeeIDDataSet();
+        ShortedCurrentVehicleDataSet TheShortedCurrentVehicleDataSet = new ShortedCurrentVehicleDataSet();
 
         //setting up global on it
         int gintThirdCounter;
@@ -180,6 +181,7 @@ namespace FourThirtyReport
                 //loading the vehicle data set
                 TheFindActiveVehicleMainDataSet = TheVehicleMainClass.FindActiveVehicleMain();
                 TheVehicleCurrentStatusDataSet.vehiclecurrentstatus.Rows.Clear();
+                TheShortedCurrentVehicleDataSet.shortenlist.Rows.Clear();
 
                 datStartDate = DateTime.Now;
                 datStartDate = TheDateSearchClass.RemoveTime(datStartDate);
@@ -279,6 +281,14 @@ namespace FourThirtyReport
                         NewVehicleRow.VehicleNumber = strVehicleNumber;
 
                         TheVehicleCurrentStatusDataSet.vehiclecurrentstatus.Rows.Add(NewVehicleRow);
+
+                        ShortedCurrentVehicleDataSet.shortenlistRow SecondVehicleRow = TheShortedCurrentVehicleDataSet.shortenlist.NewshortenlistRow();
+
+                        SecondVehicleRow.Manager = strManager;
+                        SecondVehicleRow.VehicleNumber = strVehicleNumber;
+                        SecondVehicleRow.InOrOut = strInOrOut;
+
+                        TheShortedCurrentVehicleDataSet.shortenlist.Rows.Add(SecondVehicleRow);
                     }
                 }
 
@@ -291,8 +301,7 @@ namespace FourThirtyReport
                 TheMessagesClass.ErrorMessage(Ex.ToString());
             }
         }
-
-        private void expExportExcel_Expanded(object sender, RoutedEventArgs e)
+        private void ExportFirstSheet()
         {
             int intRowCounter;
             int intRowNumberOfRecords;
@@ -352,7 +361,7 @@ namespace FourThirtyReport
             }
             catch (System.Exception ex)
             {
-                TheEventLogClass.InsertEventLogEntry(DateTime.Now, "Four Thirty Report // Main Window // Export to Excel " + ex.Message);
+                TheEventLogClass.InsertEventLogEntry(DateTime.Now, "Four Thirty Report // Main Window // Export First Sheet " + ex.Message);
 
                 MessageBox.Show(ex.ToString());
             }
@@ -362,6 +371,84 @@ namespace FourThirtyReport
                 workbook = null;
                 excel = null;
             }
+        }
+        private void ExportSecondSheet()
+        {
+            int intRowCounter;
+            int intRowNumberOfRecords;
+            int intColumnCounter;
+            int intColumnNumberOfRecords;
+
+            // Creating a Excel object. 
+            Microsoft.Office.Interop.Excel._Application excel = new Microsoft.Office.Interop.Excel.Application();
+            Microsoft.Office.Interop.Excel._Workbook workbook = excel.Workbooks.Add(Type.Missing);
+            Microsoft.Office.Interop.Excel._Worksheet worksheet = null;
+
+            try
+            {
+
+                worksheet = workbook.ActiveSheet;
+
+                worksheet.Name = "OpenOrders";
+
+                int cellRowIndex = 1;
+                int cellColumnIndex = 1;
+                intRowNumberOfRecords = TheShortedCurrentVehicleDataSet.shortenlist.Rows.Count;
+                intColumnNumberOfRecords = TheShortedCurrentVehicleDataSet.shortenlist.Columns.Count;
+
+                for (intColumnCounter = 0; intColumnCounter < intColumnNumberOfRecords; intColumnCounter++)
+                {
+                    worksheet.Cells[cellRowIndex, cellColumnIndex] = TheShortedCurrentVehicleDataSet.shortenlist.Columns[intColumnCounter].ColumnName;
+
+                    cellColumnIndex++;
+                }
+
+                cellRowIndex++;
+                cellColumnIndex = 1;
+
+                //Loop through each row and read value from each column. 
+                for (intRowCounter = 0; intRowCounter < intRowNumberOfRecords; intRowCounter++)
+                {
+                    for (intColumnCounter = 0; intColumnCounter < intColumnNumberOfRecords; intColumnCounter++)
+                    {
+                        worksheet.Cells[cellRowIndex, cellColumnIndex] = TheShortedCurrentVehicleDataSet.shortenlist.Rows[intRowCounter][intColumnCounter].ToString();
+
+                        cellColumnIndex++;
+                    }
+                    cellColumnIndex = 1;
+                    cellRowIndex++;
+                }
+
+                //Getting the location and file name of the excel to save from user. 
+                SaveFileDialog saveDialog = new SaveFileDialog();
+                saveDialog.Filter = "Excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+                saveDialog.FilterIndex = 1;
+
+                saveDialog.ShowDialog();
+
+                workbook.SaveAs(saveDialog.FileName);
+                MessageBox.Show("Export Successful");
+
+            }
+            catch (System.Exception ex)
+            {
+                TheEventLogClass.InsertEventLogEntry(DateTime.Now, "Four Thirty Report // Main Window // Export Second Sheet " + ex.Message);
+
+                MessageBox.Show(ex.ToString());
+            }
+            finally
+            {
+                excel.Quit();
+                workbook = null;
+                excel = null;
+            }
+        }
+
+        private void expExportExcel_Expanded(object sender, RoutedEventArgs e)
+        {
+            ExportFirstSheet();
+
+            ExportSecondSheet();
         }
     }
 }

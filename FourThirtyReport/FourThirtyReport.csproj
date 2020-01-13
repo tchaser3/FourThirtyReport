@@ -87,6 +87,11 @@
     <Compile Include="PleaseWait.xaml.cs">
       <DependentUpon>PleaseWait.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ShortedCurrentVehicleDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ShortedCurrentVehicleDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="VehicleCurrentStatusDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -142,6 +147,17 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ShortedCurrentVehicleDataSet.xsc">
+      <DependentUpon>ShortedCurrentVehicleDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ShortedCurrentVehicleDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ShortedCurrentVehicleDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ShortedCurrentVehicleDataSet.xss">
+      <DependentUpon>ShortedCurrentVehicleDataSet.xsd</DependentUpon>
     </None>
     <None Include="VehicleCurrentStatusDataSet.xsc">
       <DependentUpon>VehicleCurrentStatusDataSet.xsd</DependentUpon>
