@@ -130,6 +130,11 @@ namespace FourThirtyReport
 
                     AutomileImportDataSet.automileimportRow NewVehicleRow = TheAutomileImportDataSet.automileimport.NewautomileimportRow();
 
+                    if (strIsInside == "YES")
+                        strIsInside = "IN YARD";
+                    else if (strIsInside == "NO")
+                        strIsInside = "OUT";
+
                     NewVehicleRow.Driver = strDriver;
                     NewVehicleRow.GeoFence = strGeoFence;
                     NewVehicleRow.IsInside = strIsInside;
@@ -191,105 +196,115 @@ namespace FourThirtyReport
                 intAutomileNumberOfRecords = TheAutomileImportDataSet.automileimport.Rows.Count - 1;
                 gintThirdCounter = 0;
                 gintThirdNumberOfRecords = 0;
-
+                
                 for (intVehicleCounter = 0; intVehicleCounter <= intVehicleNumberOfRecords; intVehicleCounter++)
                 {
                     intVehicleID = TheFindActiveVehicleMainDataSet.FindActiveVehicleMain[intVehicleCounter].VehicleID;
-                    strVehicleNumber = TheFindActiveVehicleMainDataSet.FindActiveVehicleMain[intVehicleCounter].VehicleNumber;
 
-                    strAssignedOffice = TheFindActiveVehicleMainDataSet.FindActiveVehicleMain[intVehicleCounter].AssignedOffice;
-
-                    TheFindCurrentAssignedVehicleMainByVehicleIDDataSet = TheVehicleAssignmentClass.FindCurrentAssignedVehicleMainByVehicleID(intVehicleID);
-
-                    strFullName = TheFindCurrentAssignedVehicleMainByVehicleIDDataSet.FindCurrentAssignedVehicleMainByVehicleID[0].FirstName + " ";
-                    strFullName += TheFindCurrentAssignedVehicleMainByVehicleIDDataSet.FindCurrentAssignedVehicleMainByVehicleID[0].LastName;
-                    intManagerID = TheFindCurrentAssignedVehicleMainByVehicleIDDataSet.FindCurrentAssignedVehicleMainByVehicleID[0].ManagerID;
-
-                    TheFindEnmployeeByEmployeeIDDataSet = TheEmployeeClass.FindEmployeeByEmployeeID(intManagerID);
-
-                    strManager = TheFindEnmployeeByEmployeeIDDataSet.FindEmployeeByEmployeeID[0].FirstName + " ";
-                    strManager += TheFindEnmployeeByEmployeeIDDataSet.FindEmployeeByEmployeeID[0].LastName;
-                    strInOrOut = "UNKNOWN";
-
-                    if(TheFindCurrentAssignedVehicleMainByVehicleIDDataSet.FindCurrentAssignedVehicleMainByVehicleID[0].LastName == "WAREHOUSE")
+                    if(intVehicleID != 9076)
                     {
-                        strManager = "FLEET MANAGER";
-                    }
+                        strVehicleNumber = TheFindActiveVehicleMainDataSet.FindActiveVehicleMain[intVehicleCounter].VehicleNumber;
 
-                    TheFindVehicleInShopByVehicleIDDataSet = TheVehiclesInShopClass.FindVehicleMainInShopByVehicleID(intVehicleID);
-                    
-                    TheFindVehicleInYardByVehicleIDAndDateRangeDataSet = TheVehicleInYardClass.FindVehiclesInYardByVehicleIDAndDateRange(intVehicleID, datStartDate, datEndDate);
+                        strAssignedOffice = TheFindActiveVehicleMainDataSet.FindActiveVehicleMain[intVehicleCounter].AssignedOffice;
 
-                    intRecordsReturned = TheFindVehicleInYardByVehicleIDAndDateRangeDataSet.FindVehiclesInYardByVehicleIDAndDateRange.Rows.Count;
+                        TheFindCurrentAssignedVehicleMainByVehicleIDDataSet = TheVehicleAssignmentClass.FindCurrentAssignedVehicleMainByVehicleID(intVehicleID);
 
-                    if (intRecordsReturned > 0)
-                    {
-                        strInOrOut = "IN YARD";
-                    }
+                        strFullName = TheFindCurrentAssignedVehicleMainByVehicleIDDataSet.FindCurrentAssignedVehicleMainByVehicleID[0].FirstName + " ";
+                        strFullName += TheFindCurrentAssignedVehicleMainByVehicleIDDataSet.FindCurrentAssignedVehicleMainByVehicleID[0].LastName;
+                        intManagerID = TheFindCurrentAssignedVehicleMainByVehicleIDDataSet.FindCurrentAssignedVehicleMainByVehicleID[0].ManagerID;
 
-                    blnItemEntered = false;
+                        TheFindEnmployeeByEmployeeIDDataSet = TheEmployeeClass.FindEmployeeByEmployeeID(intManagerID);
 
-                    for (intAutomileCounter = 0; intAutomileCounter <= intAutomileNumberOfRecords; intAutomileCounter++)
-                    {
-                        strAutomileVehicleNumber = TheAutomileImportDataSet.automileimport[intAutomileCounter].VehicleNumber;   
+                        strManager = TheFindEnmployeeByEmployeeIDDataSet.FindEmployeeByEmployeeID[0].FirstName + " ";
+                        strManager += TheFindEnmployeeByEmployeeIDDataSet.FindEmployeeByEmployeeID[0].LastName;
+                        strInOrOut = "UNKNOWN";
 
-                        blnItemFound = strAutomileVehicleNumber.Contains(strVehicleNumber);
-
-                        if (blnItemFound == true)
+                        if (TheFindCurrentAssignedVehicleMainByVehicleIDDataSet.FindCurrentAssignedVehicleMainByVehicleID[0].LastName == "WAREHOUSE")
                         {
-                            strInOrOut = TheAutomileImportDataSet.automileimport[intAutomileCounter].IsInside;
+                            strManager = "FLEET MANAGER";
+                        }
 
-                            if (gintThirdCounter > 0)
+                        TheFindVehicleInShopByVehicleIDDataSet = TheVehiclesInShopClass.FindVehicleMainInShopByVehicleID(intVehicleID);
+
+                        TheFindVehicleInYardByVehicleIDAndDateRangeDataSet = TheVehicleInYardClass.FindVehiclesInYardByVehicleIDAndDateRange(intVehicleID, datStartDate, datEndDate);
+
+                        intRecordsReturned = TheFindVehicleInYardByVehicleIDAndDateRangeDataSet.FindVehiclesInYardByVehicleIDAndDateRange.Rows.Count;
+
+                        if (intRecordsReturned > 0)
+                        {
+                            strInOrOut = "IN YARD";
+                        }
+
+                        blnItemEntered = false;
+
+                        for (intAutomileCounter = 0; intAutomileCounter <= intAutomileNumberOfRecords; intAutomileCounter++)
+                        {
+                            strAutomileVehicleNumber = TheAutomileImportDataSet.automileimport[intAutomileCounter].VehicleNumber;
+
+                            blnItemFound = strAutomileVehicleNumber.Contains(strVehicleNumber);
+
+                            if (blnItemFound == true)
                             {
-                                for (intThirdCounter = 0; gintThirdCounter <= gintThirdNumberOfRecords; intThirdCounter++)
-                                {
-                                    if (strVehicleNumber == TheVehicleCurrentStatusDataSet.vehiclecurrentstatus[intThirdCounter].VehicleNumber)
-                                    {
-                                        if(strInOrOut == "YES")
-                                        {
-                                            TheVehicleCurrentStatusDataSet.vehiclecurrentstatus[intThirdCounter].InOrOut = "IN YARD";
-                                        }
-                                        else if(strInOrOut == "NO")
-                                        {
-                                            TheVehicleCurrentStatusDataSet.vehiclecurrentstatus[intThirdCounter].InOrOut = strInOrOut;
-                                        }                                        
+                                strInOrOut = TheAutomileImportDataSet.automileimport[intAutomileCounter].IsInside;
 
-                                        blnItemEntered = true;
+                                if (strInOrOut == "YES")
+                                    strInOrOut = "IN YARD";
+                                else if (strInOrOut == "NO")
+                                    strInOrOut = "OUT";
+
+                                if (gintThirdCounter > 0)
+                                {
+                                    for (intThirdCounter = 0; gintThirdCounter <= gintThirdNumberOfRecords; intThirdCounter++)
+                                    {
+                                        if (strVehicleNumber == TheVehicleCurrentStatusDataSet.vehiclecurrentstatus[intThirdCounter].VehicleNumber)
+                                        {
+                                            if (strInOrOut == "YES")
+                                            {
+                                                TheVehicleCurrentStatusDataSet.vehiclecurrentstatus[intThirdCounter].InOrOut = "IN YARD";
+                                            }
+                                            else if (strInOrOut == "NO")
+                                            {
+                                                TheVehicleCurrentStatusDataSet.vehiclecurrentstatus[intThirdCounter].InOrOut = strInOrOut;
+                                            }
+
+                                            blnItemEntered = true;
+                                        }
                                     }
                                 }
                             }
+
                         }
-                        
+
+
+                        intRecordsReturned = TheFindVehicleInShopByVehicleIDDataSet.FindVehicleMainInShopByVehicleID.Rows.Count;
+
+                        if (intRecordsReturned > 0)
+                        {
+                            strInOrOut = "IN SHOP";
+                        }
+
+                        if (blnItemEntered == false)
+                        {
+                            VehicleCurrentStatusDataSet.vehiclecurrentstatusRow NewVehicleRow = TheVehicleCurrentStatusDataSet.vehiclecurrentstatus.NewvehiclecurrentstatusRow();
+
+                            NewVehicleRow.AssignedOffice = strAssignedOffice;
+                            NewVehicleRow.Manager = strManager;
+                            NewVehicleRow.Driver = strFullName;
+                            NewVehicleRow.InOrOut = strInOrOut;
+                            NewVehicleRow.VehicleNumber = strVehicleNumber;
+
+                            TheVehicleCurrentStatusDataSet.vehiclecurrentstatus.Rows.Add(NewVehicleRow);
+
+                            ShortedCurrentVehicleDataSet.shortenlistRow SecondVehicleRow = TheShortedCurrentVehicleDataSet.shortenlist.NewshortenlistRow();
+
+                            SecondVehicleRow.Driver = strFullName;
+                            SecondVehicleRow.VehicleNumber = strVehicleNumber;
+                            SecondVehicleRow.InOrOut = strInOrOut;
+
+                            TheShortedCurrentVehicleDataSet.shortenlist.Rows.Add(SecondVehicleRow);
+                        }
                     }
-
-
-                    intRecordsReturned = TheFindVehicleInShopByVehicleIDDataSet.FindVehicleMainInShopByVehicleID.Rows.Count;
-
-                    if (intRecordsReturned > 0)
-                    {
-                        strInOrOut = "IN SHOP";
-                    }
-
-                    if (blnItemEntered == false)
-                    {
-                        VehicleCurrentStatusDataSet.vehiclecurrentstatusRow NewVehicleRow = TheVehicleCurrentStatusDataSet.vehiclecurrentstatus.NewvehiclecurrentstatusRow();
-
-                        NewVehicleRow.AssignedOffice = strAssignedOffice;
-                        NewVehicleRow.Manager = strManager;
-                        NewVehicleRow.Driver = strFullName;
-                        NewVehicleRow.InOrOut = strInOrOut;
-                        NewVehicleRow.VehicleNumber = strVehicleNumber;
-
-                        TheVehicleCurrentStatusDataSet.vehiclecurrentstatus.Rows.Add(NewVehicleRow);
-
-                        ShortedCurrentVehicleDataSet.shortenlistRow SecondVehicleRow = TheShortedCurrentVehicleDataSet.shortenlist.NewshortenlistRow();
-
-                        SecondVehicleRow.Manager = strManager;
-                        SecondVehicleRow.VehicleNumber = strVehicleNumber;
-                        SecondVehicleRow.InOrOut = strInOrOut;
-
-                        TheShortedCurrentVehicleDataSet.shortenlist.Rows.Add(SecondVehicleRow);
-                    }
+                    
                 }
 
                 dgrResults.ItemsSource = TheVehicleCurrentStatusDataSet.vehiclecurrentstatus;

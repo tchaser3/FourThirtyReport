@@ -281,7 +281,7 @@ namespace FourThirtyReport {
             
             private global::System.Data.DataColumn columnVehicleNumber;
             
-            private global::System.Data.DataColumn columnManager;
+            private global::System.Data.DataColumn columnDriver;
             
             private global::System.Data.DataColumn columnInOrOut;
             
@@ -328,9 +328,9 @@ namespace FourThirtyReport {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn ManagerColumn {
+            public global::System.Data.DataColumn DriverColumn {
                 get {
-                    return this.columnManager;
+                    return this.columnDriver;
                 }
             }
             
@@ -379,11 +379,11 @@ namespace FourThirtyReport {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public shortenlistRow AddshortenlistRow(string VehicleNumber, string Manager, string InOrOut) {
+            public shortenlistRow AddshortenlistRow(string VehicleNumber, string Driver, string InOrOut) {
                 shortenlistRow rowshortenlistRow = ((shortenlistRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         VehicleNumber,
-                        Manager,
+                        Driver,
                         InOrOut};
                 rowshortenlistRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowshortenlistRow);
@@ -408,7 +408,7 @@ namespace FourThirtyReport {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             internal void InitVars() {
                 this.columnVehicleNumber = base.Columns["VehicleNumber"];
-                this.columnManager = base.Columns["Manager"];
+                this.columnDriver = base.Columns["Driver"];
                 this.columnInOrOut = base.Columns["InOrOut"];
             }
             
@@ -417,12 +417,12 @@ namespace FourThirtyReport {
             private void InitClass() {
                 this.columnVehicleNumber = new global::System.Data.DataColumn("VehicleNumber", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnVehicleNumber);
-                this.columnManager = new global::System.Data.DataColumn("Manager", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnManager);
+                this.columnDriver = new global::System.Data.DataColumn("Driver", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDriver);
                 this.columnInOrOut = new global::System.Data.DataColumn("InOrOut", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnInOrOut);
                 this.columnVehicleNumber.AllowDBNull = false;
-                this.columnManager.AllowDBNull = false;
+                this.columnDriver.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -576,12 +576,12 @@ namespace FourThirtyReport {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Manager {
+            public string Driver {
                 get {
-                    return ((string)(this[this.tableshortenlist.ManagerColumn]));
+                    return ((string)(this[this.tableshortenlist.DriverColumn]));
                 }
                 set {
-                    this[this.tableshortenlist.ManagerColumn] = value;
+                    this[this.tableshortenlist.DriverColumn] = value;
                 }
             }
             
