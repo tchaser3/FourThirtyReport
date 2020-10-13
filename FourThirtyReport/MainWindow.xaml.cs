@@ -144,6 +144,9 @@ namespace FourThirtyReport
                 }
 
                 PleaseWait.Close();
+
+                TheMessagesClass.InformationMessage("GEO Fence Report Has Been Imported");
+
                 dgrResults.ItemsSource = TheAutomileImportDataSet.automileimport;
                 
             }
@@ -183,6 +186,8 @@ namespace FourThirtyReport
 
             try
             {
+                expProcess.IsExpanded = false;
+
                 //loading the vehicle data set
                 TheFindActiveVehicleMainDataSet = TheVehicleMainClass.FindActiveVehicleMain();
                 TheVehicleCurrentStatusDataSet.vehiclecurrentstatus.Rows.Clear();
@@ -307,6 +312,8 @@ namespace FourThirtyReport
                     
                 }
 
+                TheMessagesClass.InformationMessage("Processing the Report Is Completed");
+
                 dgrResults.ItemsSource = TheVehicleCurrentStatusDataSet.vehiclecurrentstatus;
             }
             catch (Exception Ex)
@@ -322,6 +329,9 @@ namespace FourThirtyReport
             int intRowNumberOfRecords;
             int intColumnCounter;
             int intColumnNumberOfRecords;
+
+            PleaseWait PleaseWait = new PleaseWait();
+            PleaseWait.Show();
 
             // Creating a Excel object. 
             Microsoft.Office.Interop.Excel._Application excel = new Microsoft.Office.Interop.Excel.Application();
@@ -362,6 +372,8 @@ namespace FourThirtyReport
                     cellColumnIndex = 1;
                     cellRowIndex++;
                 }
+
+                PleaseWait.Close();
 
                 //Getting the location and file name of the excel to save from user. 
                 SaveFileDialog saveDialog = new SaveFileDialog();
@@ -461,9 +473,10 @@ namespace FourThirtyReport
 
         private void expExportExcel_Expanded(object sender, RoutedEventArgs e)
         {
+            expExportExcel.IsExpanded = false;
             ExportFirstSheet();
 
-            ExportSecondSheet();
+            //ExportSecondSheet();
         }
     }
 }
